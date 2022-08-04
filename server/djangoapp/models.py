@@ -29,21 +29,22 @@ class CarDealer(models.Model):
 class CarModel(models.Model):
     # carmodel_id = models.AutoField(primary_key=True)
     # car_make = models.ManyToOneField(CarMake )
-    model_name = models.CharField(max_length=100)
+    name = models.CharField(max_length=100)
 #  Make model (One Car Make has many Car Models, using ForeignKey field)
     car_make = models.ForeignKey( CarMake , on_delete=models.CASCADE) 
 # - Dealer id, used to refer a dealer created in cloudant database
-    dealer_id = models.ForeignKey(CarDealer , on_delete=models.CASCADE)
+    car_dealer  = models.ForeignKey(CarDealer , on_delete=models.CASCADE)
     
 # - Type (CharField with a choices argument to provide limited choices such as Sedan, SUV, WAGON, etc.)
     year = models.DateField()
     def __str__(self):
-        return self.model_name
+        return self.name
 # <HINT> Create a plain Python class `DealerReview` to hold review data
 class DealerReview(models.Model):
     # dealerreview_id = models.AutoField(primary_key=True)
-    cardealer_id = models.ForeignKey(CarDealer , on_delete=models.CASCADE)
-    purchasecheck = models.BooleanField()
-    purchasedate = models.DateTimeField()
+    car_dealer  = models.ForeignKey(CarDealer , on_delete=models.CASCADE)
+    car = models.ForeignKey(CarModel  , on_delete=models.CASCADE)
+    purchasecheck = models.BooleanField(default=False)
+    purchasedate = models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE ) #, through='Users' 
-    content = models.TextField(max_length=500)
+    content = models.TextField(max_length=1000)

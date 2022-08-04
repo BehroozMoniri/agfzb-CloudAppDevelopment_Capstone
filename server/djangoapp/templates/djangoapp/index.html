@@ -56,13 +56,13 @@
             {% for dealer in dealership_list %}
                 <tr>
                     <td>{{dealer.id}}</td>
-        {% comment %}  <td><a href="{% url 'djangoapp:dealer_details' dealer.id %}">{{dealer.full_name}}</a></td>  {% endcomment %}   
+                    <td><a href="{% url 'djangoapp:dealer_details' dealer.id  %}">{{ dealer.full_name}}</a></td>   {% comment %} dealer.id{% endcomment %}   
                     <td>{{dealer.city}}</td>
                     <td>{{dealer.address}}</td>
                     <td>{{dealer.zip}}</td>
                     <td>{{dealer.state}}</td>
                 </tr>
-            <a class="btn btn-primary" href="{% url 'contact' dealer.id %}"  >Contact us</a> {% comment %}  {% endcomment %} 
+                <a class="btn btn-primary" href="{% url 'djangoapp:contact'  %}" >Contact us</a>{% comment %}  {% endcomment %} 
             {% endfor %}
         </tbody>
     </table>

@@ -9,7 +9,7 @@ from django.contrib import messages
 from datetime import datetime
 import logging
 import json
-from django.urls import reverse_lazy
+from django.urls import reverse 
 
 # Get an instance of a logger
 logger = logging.getLogger(__name__)
@@ -94,14 +94,36 @@ def get_dealerships(request):
 # Create a `get_dealer_details` view to render the reviews of a dealer
 def get_dealer_details(request, dealer_id):
     dealer = get_object_or_404(CarDealer, pk=dealer_id)
-    context = {"dealer" : dealer }
+    dealer_list = CarDealer.objects.all()
+    #comments = dealer.dealerreview_set.all().get(cardealer_id=dealer_id)
+    context = {"dealer" : dealer , "dealer_list" :dealer_list} #, "comments":comments
     if request.method == "GET":
-        return render(request, 'djangoapp/index.html', context)
+        return render(request, 'djangoapp/dealer_details.html', context)
     
 
 # Create a `add_review` view to submit a review
-def add_review(request, dealer_id):
-    dealer = CarDealer.objects.get(id = dealer_id)
-    review = DealerReview.create(cardealer_id =dealer_id, purchasecheck=True, user=request.user,  )
-    review.save()
+def add_review(request, dealer_id): #, review_id 
+    dealer = get_object_or_404(CarDealer, pk=dealer_id)
+    cars =  CarModel.objects.all()
+    context = {"dealer" : dealer, "cars": cars}
+    if request.method == "GET":
+        # print(context)
+        # return HttpResponse('<h1>Heloo</h1>')
+        return render(request, 'djangoapp/add_review.html', context)
 
+    if request.method== "POST":
+        comment = request.POST['content']
+        purchasecheck = request.POST['purchasecheck']
+        purchasedate = request.POST['purchasedate']
+        car_id = request.POST['car']
+        car = CarModel.objects.filter(id = car_id) #.values_list('choices',flat = True)
+        review = DealerReview.objects.create(car_dealer_id =dealer_id, 
+                                    purchasecheck=purchasecheck, 
+                                    purchasedate=purchasedate,
+                                    car_id = car_id,
+                                    user=request.user, 
+                                    content=comment )
+        review.save()
+        return HttpResponseRedirect(reverse('djangoapp:dealer_details', args=(dealer_id,)))
+        #return HttpResponseRedirect(reverse(viewname='djangoapp/dealer_details.html', args=(dealer_id,)))
+    #return redirect('djangoapp:index')
