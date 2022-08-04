@@ -62,7 +62,7 @@
                     <td>{{dealer.zip}}</td>
                     <td>{{dealer.state}}</td>
                 </tr>
-        {% comment %} <a class="btn btn-primary" href="{% url 'contact' dealer.id %}"  >Contact us</a>  {% endcomment %} 
+            <a class="btn btn-primary" href="{% url 'contact' dealer.id %}"  >Contact us</a> {% comment %}  {% endcomment %} 
             {% endfor %}
         </tbody>
     </table>

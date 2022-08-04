@@ -22,14 +22,14 @@ def about(request):
         
 
 # Create a `contact` view to return a static contact page
-def contact(request, dealer_id):
+def contact(request ): # ,dealer_id
     context = {}
-    dealer = get_object_or_404(CarDealer, pk=dealer_id)
-    address = dealer.address
-    context['address'] = address
+    # dealer = get_object_or_404(CarDealer, pk=dealer_id)
+    # address = dealer.address
+    # context['address'] = address
     if request.method == "GET":
         return render(request, 'djangoapp/contact.html', context)
-        # return HttpResponseRedirect(reverse(viewname=''djangoapp:contact', args=(course.id,submission.id ))) 
+        #return HttpResponseRedirect(reverse(viewname='djangoapp:contact')) # , args=(dealer.id )
 # Create a `login_request` view to handle sign in request
 # def login_request(request):
 # ...

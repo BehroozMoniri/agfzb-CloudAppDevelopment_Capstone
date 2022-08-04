@@ -7,6 +7,7 @@ import uuid
 
 # <HINT> Create a Car Make model `class CarMake(models.Model)`:
 class CarMake(models.Model):
+    # carmake_id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=100)
     description = models.CharField(max_length=100)
     #  carmodel_id = models.ForeignKey(CarModel , on_delete=models.CASCADE)
@@ -15,6 +16,7 @@ class CarMake(models.Model):
 
 # <HINT> Create a plain Python class `CarDealer` to hold dealer data
 class CarDealer(models.Model):
+    # cardealer_id = models.AutoField(primary_key=True)
     full_name = models.CharField(max_length=100)
     city = models.CharField(max_length=100)
     address = models.CharField(max_length=500)
@@ -25,6 +27,7 @@ class CarDealer(models.Model):
         return self.full_name 
 # <HINT> Create a Car Model model `class CarModel(models.Model):`:
 class CarModel(models.Model):
+    # carmodel_id = models.AutoField(primary_key=True)
     # car_make = models.ManyToOneField(CarMake )
     model_name = models.CharField(max_length=100)
 #  Make model (One Car Make has many Car Models, using ForeignKey field)
@@ -38,6 +41,7 @@ class CarModel(models.Model):
         return self.model_name
 # <HINT> Create a plain Python class `DealerReview` to hold review data
 class DealerReview(models.Model):
+    # dealerreview_id = models.AutoField(primary_key=True)
     cardealer_id = models.ForeignKey(CarDealer , on_delete=models.CASCADE)
     purchasecheck = models.BooleanField()
     purchasedate = models.DateTimeField()

@@ -1,11 +1,20 @@
   applications:
   - name: djangoapp
     routes:
-      - route: $HOST.$DOMAIN
+      - route: my_host.eu-gb.cf.appdomain.cloud
     memory: 128M
     buildpack: python_buildpack
   - name: djangoapp-nginx
     routes:
-      - route: $HOST.$DOMAIN/static
+      - route: my_host.eu-gb.cf.appdomain.cloud/static
     memory: 128M
     buildpack: staticfile_buildpack
+# ibmcloud cf domains   
+# Invoking 'cf domains'...
+
+# Getting domains in org moniri as moniri@hotmail.co.uk...
+# name                       status   type   details
+# eu-gb.mybluemix.net        shared          
+# apic.eu-gb.mybluemix.net   shared          
+# eu-gb.cf.appdomain.cloud   shared          
+# apps.internal              shared          internal
