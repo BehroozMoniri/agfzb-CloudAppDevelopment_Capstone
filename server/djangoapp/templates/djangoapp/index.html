@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Dealership Review</title>
+    <title>index</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
@@ -17,13 +17,62 @@
 
     <!--Add a nav bar here -->
     <nav> 
-        <ul>
+        <ul rel="stylesheet" href="djangoapp.css">
             <li> <a href="{% url 'djangoapp:about' %}">About Us</a></li> {% comment %} {% url "about" %} {% endcomment %}
-            <li> <a href="{% url 'djangoapp:contact' %}">Contact Us</a></li> 
+             {% comment %}   <li> <a href="{% url 'djangoapp:contact' %}">Contact Us</a></li>   {% endcomment %} 
+            
+            {% if user.is_authenticated %}
+            <li  class="rightcolumn">
+                <a class="btn btn-link" href="#">{{ user.first_name }}({{ user.username }})</a>
+                <a class="btn btn-link" href="{% url 'djangoapp:logout' %}">Logout</a>
+            </li>
+            {% else %}
+            <form class="rightcolumn" action="{% url 'djangoapp:login' %}" method="post">  <!--  -->
+                {% csrf_token %}
+                <div class="input-group">
+                    <input type="text" class="rightcolumn" placeholder="Username" name="username" >
+                    <input type="password" class="rightcolumn" placeholder="Password" name="psw" >
+                    <button class="btn btn-primary" type="submit">Login</button>
+                    <a class="btn btn-link" href="{% url 'djangoapp:registration' %}">Sign Up</a> <!--  -->
+                </div>
+            </form>
+            
+            {% endif %}
         </ul>
     </nav>
     <!--Add a dealer table here -->
-
+    <table class="table" id="table" data-filter-control="true">
+        <thead>
+            <tr>
+                <th data-field="id">ID</th>
+                <th data-field="name">Dealer Name</th>
+                <th data-field="city">City</th>
+                <th data-field="add">Address</th>
+                <th data-field="zip">Zip</th>
+                <th data-field="state" data-filter-control="select">State</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for dealer in dealership_list %}
+                <tr>
+                    <td>{{dealer.id}}</td>
+        {% comment %}  <td><a href="{% url 'djangoapp:dealer_details' dealer.id %}">{{dealer.full_name}}</a></td>  {% endcomment %}   
+                    <td>{{dealer.city}}</td>
+                    <td>{{dealer.address}}</td>
+                    <td>{{dealer.zip}}</td>
+                    <td>{{dealer.state}}</td>
+                </tr>
+        {% comment %} <a class="btn btn-primary" href="{% url 'contact' dealer.id %}"  >Contact us</a>  {% endcomment %} 
+            {% endfor %}
+        </tbody>
+    </table>
     </body>
-
+    <footer>
+        
+    </footer>
+    <script>
+        $(function() {
+          $('#table').bootstrapTable()
+        })
+      </script>
 </html>
