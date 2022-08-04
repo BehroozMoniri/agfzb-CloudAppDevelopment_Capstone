@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+{% comment %} <head>
     <meta charset="UTF-8">
     <title>index</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
@@ -11,8 +11,12 @@
     <script src="https://unpkg.com/bootstrap-table@1.18.2/dist/bootstrap-table.min.js"></script>
     <script src="https://unpkg.com/bootstrap-table@1.18.2/dist/extensions/filter-control/bootstrap-table-filter-control.min.js"></script>
 
+</head> {% endcomment %}
+<head>
+    <meta charset="UTF-8">
+    {% load static %}
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
-
     <body>
 
     <!--Add a nav bar here -->
@@ -23,8 +27,8 @@
             
             {% if user.is_authenticated %}
             <li  class="rightcolumn">
-                <a class="btn btn-link" href="#">{{ user.first_name }}({{ user.username }})</a>
-                <a class="btn btn-link" href="{% url 'djangoapp:logout' %}">Logout</a>
+                <a class="btn btn-primary" href="#">{{ user.first_name }}({{ user.username }})</a>
+                <a class="btn btn-primary" href="{% url 'djangoapp:logout' %}">Logout</a>
             </li>
             {% else %}
             <form class="rightcolumn" action="{% url 'djangoapp:login' %}" method="post">  <!--  -->
@@ -33,7 +37,7 @@
                     <input type="text" class="rightcolumn" placeholder="Username" name="username" >
                     <input type="password" class="rightcolumn" placeholder="Password" name="psw" >
                     <button class="btn btn-primary" type="submit">Login</button>
-                    <a class="btn btn-link" href="{% url 'djangoapp:registration' %}">Sign Up</a> <!--  -->
+                    <a class="btn btn-primary" href="{% url 'djangoapp:registration' %}">Sign Up</a> <!--  -->
                 </div>
             </form>
             
@@ -62,13 +66,13 @@
                     <td>{{dealer.zip}}</td>
                     <td>{{dealer.state}}</td>
                 </tr>
-                <a class="btn btn-primary" href="{% url 'djangoapp:contact'  %}" >Contact us</a>{% comment %}  {% endcomment %} 
+             {% comment %}     {% endcomment %} 
             {% endfor %}
         </tbody>
     </table>
     </body>
     <footer>
-        
+        <a class="btn btn-primary" href="{% url 'djangoapp:contact'  %}" >Contact us</a>
     </footer>
     <script>
         $(function() {

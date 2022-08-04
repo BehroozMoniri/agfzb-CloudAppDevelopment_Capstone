@@ -1,10 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+{% comment %} <head>
     <meta charset="UTF-8">
     <title>Dealership Review</title>
     {% load static %}
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head> {% endcomment %}
+<head>
+    <meta charset="UTF-8">
+    {% load static %}
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
     <body>
 
@@ -15,9 +20,9 @@
                 
                 {% if user.is_authenticated %}
                 <li  class="rightcolumn">
-                    <a class="btn btn-link" href="#">{{ user.first_name }}({{ user.username }})</a>
-                    <a class="btn btn-link" href="{% url 'djangoapp:add_review' dealer.id %}">Add your review for this car dealer</a>
-                    <a class="btn btn-link" href="{% url 'djangoapp:logout' %}">Logout</a>
+                    <a class="btn btn-primary" href="#">{{ user.first_name }}({{ user.username }})</a>
+                    <a class="btn btn-primary" href="{% url 'djangoapp:add_review' dealer.id %}">Add your review for this car dealer</a>
+                    <a class="btn btn-primary" href="{% url 'djangoapp:logout' %}">Logout</a>
                 </li>
                 {% else %}
                 <form class="rightcolumn" action="{% url 'djangoapp:login' %}" method="POST">  <!--  -->

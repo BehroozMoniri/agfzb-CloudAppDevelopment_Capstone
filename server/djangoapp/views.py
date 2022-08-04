@@ -86,7 +86,6 @@ def get_dealerships(request):
     context = {}
     dealer_list = CarDealer.objects.all()
     context["dealership_list"] = dealer_list 
-
     if request.method == "GET":
         return render(request, 'djangoapp/index.html', context)
 
@@ -95,8 +94,7 @@ def get_dealerships(request):
 def get_dealer_details(request, dealer_id):
     dealer = get_object_or_404(CarDealer, pk=dealer_id)
     dealer_list = CarDealer.objects.all()
-    #comments = dealer.dealerreview_set.all().get(cardealer_id=dealer_id)
-    context = {"dealer" : dealer , "dealer_list" :dealer_list} #, "comments":comments
+    context = {"dealer" : dealer , "dealer_list" :dealer_list} 
     if request.method == "GET":
         return render(request, 'djangoapp/dealer_details.html', context)
     
@@ -107,8 +105,6 @@ def add_review(request, dealer_id): #, review_id
     cars =  CarModel.objects.all()
     context = {"dealer" : dealer, "cars": cars}
     if request.method == "GET":
-        # print(context)
-        # return HttpResponse('<h1>Heloo</h1>')
         return render(request, 'djangoapp/add_review.html', context)
 
     if request.method== "POST":
@@ -125,5 +121,4 @@ def add_review(request, dealer_id): #, review_id
                                     content=comment )
         review.save()
         return HttpResponseRedirect(reverse('djangoapp:dealer_details', args=(dealer_id,)))
-        #return HttpResponseRedirect(reverse(viewname='djangoapp/dealer_details.html', args=(dealer_id,)))
-    #return redirect('djangoapp:index')
+
