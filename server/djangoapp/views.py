@@ -103,7 +103,8 @@ def get_dealer_details(request, dealer_id):
 def add_review(request, dealer_id): #, review_id 
     dealer = get_object_or_404(CarDealer, pk=dealer_id)
     cars =  CarModel.objects.all()
-    context = {"dealer" : dealer, "cars": cars}
+    car_make = CarMake.objects.get(id = dealer.id)
+    context = {"dealer" : dealer, "cars": cars, "car_make" : car_make}
     if request.method == "GET":
         return render(request, 'djangoapp/add_review.html', context)
 
@@ -113,6 +114,7 @@ def add_review(request, dealer_id): #, review_id
         purchasedate = request.POST['purchasedate']
         car_id = request.POST['car']
         car = CarModel.objects.filter(id = car_id) #.values_list('choices',flat = True)
+        
         review = DealerReview.objects.create(car_dealer_id =dealer_id, 
                                     purchasecheck=purchasecheck, 
                                     purchasedate=purchasedate,
@@ -121,4 +123,13 @@ def add_review(request, dealer_id): #, review_id
                                     content=comment )
         review.save()
         return HttpResponseRedirect(reverse('djangoapp:dealer_details', args=(dealer_id,)))
-
+# def CreateCar(request, pk):
+#     user = request.user
+#     form = ProfileForm(instance=profile)
+#     if request.method == 'POST':
+#         form = CarForm(request.POST, request.FILES, instance=profile)
+#         if form.is_valid():
+#             form.save()
+#             return redirect('account')
+#     context = {'form': form}
+#     return render(request, 'users/profile_form.html', context)

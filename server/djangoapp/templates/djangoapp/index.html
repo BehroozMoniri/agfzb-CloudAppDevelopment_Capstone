@@ -14,8 +14,10 @@
 </head> {% endcomment %}
 <head>
     <meta charset="UTF-8">
-    {% load static %}
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+     {% load static %}  
+    {% comment %} <link rel="stylesheet" type="text/css" href="extensions/filter-control/bootstrap-table-filter-control.css">
+    <script src="extensions/filter-control/bootstrap-table-filter-control.js"></script>{% endcomment %}
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> 
 </head>
     <body>
 
@@ -30,6 +32,34 @@
                 <a class="btn btn-primary" href="#">{{ user.first_name }}({{ user.username }})</a>
                 <a class="btn btn-primary" href="{% url 'djangoapp:logout' %}">Logout</a>
             </li>
+            <table class="table" id="table" data-filter-control="true">
+                <thead>
+                    <tr>
+                        <th data-field="id">ID</th>
+                        <th data-field="name">Dealer Name</th>
+                        <th data-field="city">City</th>
+                        <th data-field="add">Address</th>
+                        <th data-field="zip">Zip</th>
+                        <th data-field="state" data-filter-control="select">State</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for dealer in dealership_list %}
+                        <tr>
+                            <td>{{dealer.id}}</td>
+                            <td><a href="{% url 'djangoapp:dealer_details' dealer.id  %}">{{ dealer.full_name}}</a></td>   {% comment %} dealer.id{% endcomment %}   
+                            <td>{{dealer.city}}</td>
+                            <td>{{dealer.address}}</td>
+                            <td>{{dealer.zip}}</td>
+                            <td>{{dealer.state}}</td>
+                        </tr>
+                     {% comment %}     {% endcomment %} 
+                    {% endfor %}
+                </tbody>
+            </table>
+
+
+            <a class="btn btn-primary" href="{% url 'djangoapp:contact'  %}" >Contact us</a>
             {% else %}
             <form class="rightcolumn" action="{% url 'djangoapp:login' %}" method="post">  <!--  -->
                 {% csrf_token %}
@@ -44,35 +74,11 @@
             {% endif %}
         </ul>
     </nav>
-    <!--Add a dealer table here -->
-    <table class="table" id="table" data-filter-control="true">
-        <thead>
-            <tr>
-                <th data-field="id">ID</th>
-                <th data-field="name">Dealer Name</th>
-                <th data-field="city">City</th>
-                <th data-field="add">Address</th>
-                <th data-field="zip">Zip</th>
-                <th data-field="state" data-filter-control="select">State</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for dealer in dealership_list %}
-                <tr>
-                    <td>{{dealer.id}}</td>
-                    <td><a href="{% url 'djangoapp:dealer_details' dealer.id  %}">{{ dealer.full_name}}</a></td>   {% comment %} dealer.id{% endcomment %}   
-                    <td>{{dealer.city}}</td>
-                    <td>{{dealer.address}}</td>
-                    <td>{{dealer.zip}}</td>
-                    <td>{{dealer.state}}</td>
-                </tr>
-             {% comment %}     {% endcomment %} 
-            {% endfor %}
-        </tbody>
-    </table>
+    
+  
     </body>
     <footer>
-        <a class="btn btn-primary" href="{% url 'djangoapp:contact'  %}" >Contact us</a>
+        
     </footer>
     <script>
         $(function() {

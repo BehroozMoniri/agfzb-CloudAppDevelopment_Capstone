@@ -1,15 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 {% comment %} <head>
-    <meta charset="UTF-8">
-    <title>Dealership Review</title>
-    {% load static %}
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    
 </head> {% endcomment %}
 <head>
     <meta charset="UTF-8">
+    <title>Dealership Review</title>
     {% load static %}
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> 
+   {% comment %} <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">{% endcomment %}
 </head>
     <body>
 
@@ -24,6 +23,33 @@
                     <a class="btn btn-primary" href="{% url 'djangoapp:add_review' dealer.id %}">Add your review for this car dealer</a>
                     <a class="btn btn-primary" href="{% url 'djangoapp:logout' %}">Logout</a>
                 </li>
+                <!-- Add reviews as cards -->
+                <div class="card-columns">
+                    {% for review in dealer.dealerreview_set.all %}
+                        <div class="card">
+                            <img class="card-img-left" src="{{MEDIA_URL}}/emoji/positive.png">
+                        </div>
+                        <div class="card-body"> Comments: {{ review.content }} <br>
+                        Purchase date:{{ review.purchasedate }}<br>
+                        Car: {{ review.car }}<br>
+                        Reviewer: {{ review.user }}</div>
+                        </br>
+
+                    {% endfor %}
+                    {% comment %} {% for dealer in dealer_list%}
+                        Car Dealers Name: {{dealer.full_name}}</br>
+                        Address: {{dealer.address}}</br>
+                        City: {{dealer.city}}</br>
+                        Zip code: {{dealer.zip}}</br>
+                    {% endfor %} {% endcomment %}
+                </div>
+                <footer>
+                    <a class="btn btn-primary" href="{% url 'djangoapp:index'  %}" >Home</a>
+                    <a class="btn btn-primary" href="{% url 'djangoapp:contact'  %}" >Contact us</a>
+                </footer>
+
+
+
                 {% else %}
                 <form class="rightcolumn" action="{% url 'djangoapp:login' %}" method="POST">  <!--  -->
                     {% csrf_token %}
@@ -38,29 +64,7 @@
                 {% endif %}
             </ul>
         </nav>
-    <!-- Add reviews as cards -->
-    <div class="card-columns">
-        {% for review in dealer.dealerreview_set.all %}
-            <div class="card">
-                <img class="card-img-left" src="{{MEDIA_URL}}/emoji/positive.png">
-            </div>
-            <div class="card-body"> Comments: {{ review.content }} <br>
-            Purchase date:{{ review.purchasedate }}<br>
-            Car: {{ review.car }}<br>
-            Reviewer: {{ review.user }}</div>
-            </br>
-
-        {% endfor %}
-        {% comment %} {% for dealer in dealer_list%}
-            Car Dealers Name: {{dealer.full_name}}</br>
-            Address: {{dealer.address}}</br>
-            City: {{dealer.city}}</br>
-            Zip code: {{dealer.zip}}</br>
-        {% endfor %} {% endcomment %}
-
-    </div>
+    
     </body>
-<footer>
-    <a class="btn btn-primary" href="{% url 'djangoapp:contact'  %}" >Contact us</a>
-</footer>
+
 </html>

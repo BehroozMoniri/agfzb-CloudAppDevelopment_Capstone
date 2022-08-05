@@ -27,6 +27,51 @@
                     <a class="btn btn-link" href="#">{{ user.first_name }}({{ user.username }})</a>
                     <a class="btn btn-link" href="{% url 'djangoapp:logout' %}">Logout</a>
                 </li>
+                <form  action="{% url 'djangoapp:add_review' dealer.id %}" method="POST">
+                    {% csrf_token %}
+                    <h3> Add a review about {{dealer.full_name}}</h3><br> 
+                    <div class="input-group">
+                        <label for="content">Enter the review content: </label><br> 
+                        <textarea class="form-control" id="content" name="content" placeholder="Enter your review here..." rows="2" required></textarea>
+                    </div>
+                    <div class="input-group">
+                        <label for="checkbox">Has purchased the car from {{dealer.full_name}} Dealership?
+                        <input class="form-control" type="checkbox" name="purchasecheck" id="purchasecheck" value="True" required > </label>
+                        
+                        
+                    </div>
+            
+                    <div class="input-group">
+                        <label for="car">Select your car (model-make-year): </label><br> </br>
+                    <select name="car" id="car" class="form-select" required>
+                            {% for car in cars %}
+                                <option selected value={{car.id}}>{{car.name}}-{{car.car_make.name}}-{{ car.year|date:"Y" }}</option>
+                            {% endfor %}
+            
+                    </select>
+                    
+                    </div>
+                    <br> </br>
+                        <label for="purchasedate">Select your Purchase Date: </label><br>
+                        <input class="date-own form-control" type="text" name="purchasedate" id="purchasedate">
+                            {% if message %}
+                            <div class="alert alert-warning"> 
+                                {{ message }}
+                            </div>
+                            {% endif %}
+                        </br>
+                        <button class="btn btn-primary" type="submit">Submit</button>
+                    </div>
+                </form>
+                </body>
+                <footer>
+                    {% comment %} <a class="btn btn-primary" href="{% url 'djangoapp:contact'  %}" >Contact us</a> {% endcomment %}
+                </footer>
+                <script type="text/javascript">
+                    $('.date-own').datepicker({
+                       format: 'mm/dd/yyyy'
+                     });
+               </script>
                 {% else %}
                 <form class="rightcolumn" action="{% url 'djangoapp:login' %}" method="post">  <!--  -->
                     {% csrf_token %}
@@ -42,46 +87,5 @@
             </ul>
         </nav>
     <!--Add review form here -->
-    <form  action="{% url 'djangoapp:add_review' dealer.id %}" method="POST">
-        {% csrf_token %}
-        <div class="input-group">
-            <label for="content">Your Review: </label><br> </br>
-            <textarea class="form-control" id="content" name="content" placeholder="Enter your review here..." rows="2" required></textarea>
-        </div>
-        <div class="input-group">
-            <label for="checkbox">Tick if already purchased from this:
-            <input class="form-control" type="checkbox" name="purchasecheck" id="purchasecheck" value="True" required ></label>
-        </div>
-
-        <div class="input-group">
-            <label for="car">Car Model: </label><br> </br>
-        <select name="car" id="car" class="form-select" required>
-                {% for car in cars %}
-                    <option selected value={{car.id}}>{{car.name}}-{{car.make.name}}-{{ car.year|date:"Y" }}</option>
-                {% endfor %}
-
-        </select>
-        
-        </div>
-        <br> </br>
-            <label for="purchasedate">Please pick the date of purchase: </label><br>
-            <input class="date-own form-control" type="text" name="purchasedate" id="purchasedate">
-                {% if message %}
-                <div class="alert alert-warning"> 
-                    {{ message }}
-                </div>
-                {% endif %}
-            </br>
-            <button class="btn btn-primary" type="submit">Submit your review</button>
-        </div>
-    </form>
-    </body>
-    <footer>
-        <a class="btn btn-primary" href="{% url 'djangoapp:contact'  %}" >Contact us</a>
-    </footer>
-    <script type="text/javascript">
-        $('.date-own').datepicker({
-           format: 'mm/dd/yyyy'
-         });
-   </script>
+    
 </html>

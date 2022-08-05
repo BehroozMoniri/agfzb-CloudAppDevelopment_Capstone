@@ -28,7 +28,7 @@ DEBUG = True
 APPEND_SLASH = True
 # DOMAIN = "eu-gb.cf.appdomain.cloud/static"
 # '$HOST.$DOMAIN'
-ALLOWED_HOSTS = ["localhost", '127.0.0.1'  ]
+ALLOWED_HOSTS = ["localhost", '127.0.0.1', 'my_host.us-south.cf.appdomain.cloud' ,'eu-gb.cf.appdomain.cloud' ]
 
 
 # Application definition
