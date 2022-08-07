@@ -26,15 +26,22 @@
                 <!-- Add reviews as cards -->
                 <div class="card-columns">
                     {% for review in dealer.dealerreview_set.all %}
-                        <div class="card">
-                            <img class="card-img-left" src="{{MEDIA_URL}}/emoji/positive.png">
-                        </div>
+                    <div class="container">
+                        <div style="width: 24rem" class="card">
+                            <div class="card-header"> 
+                            <img class="card-img-left" src="{{MEDIA_URL}}/emoji/positive.png"> </div>
+                        
                         <div class="card-body"> Comments: {{ review.content }} <br>
                         Purchase date:{{ review.purchasedate }}<br>
                         Car: {{ review.car }}<br>
-                        Reviewer: {{ review.user }}</div>
-                        </br>
+                        Reviewer: {{ review.user }}
+                        </br></div>
+                        <footer class="card-footer">
+                            <a class="btn btn-sm btn-danger" href="{% url 'djangoapp:delete_review' review.id  %}" >Delete</a>
+                        </footer>
+                    </div>
 
+                    </div>
                     {% endfor %}
                     {% comment %} {% for dealer in dealer_list%}
                         Car Dealers Name: {{dealer.full_name}}</br>

@@ -24,15 +24,19 @@
     <!--Add a nav bar here -->
     <nav> 
         <ul rel="stylesheet" href="djangoapp.css">
-            <li> <a href="{% url 'djangoapp:about' %}">About Us</a></li> {% comment %} {% url "about" %} {% endcomment %}
+            <li> <a class="btn btn-info col-sm-8" href="{% url 'djangoapp:about' %}">About Us</a></li> {% comment %} {% url "about" %} {% endcomment %}
              {% comment %}   <li> <a href="{% url 'djangoapp:contact' %}">Contact Us</a></li>   {% endcomment %} 
-            
+             <li> Dealersips in the US</li>
+             <li>
             {% if user.is_authenticated %}
-            <li  class="rightcolumn">
-                <a class="btn btn-primary" href="#">{{ user.first_name }}({{ user.username }})</a>
-                <a class="btn btn-primary" href="{% url 'djangoapp:logout' %}">Logout</a>
+            <div style="position:absolute;  right:1px;" class="rightalign">
+            
+                <a class="btn btn-primary" id="name" href="#">{{ user.first_name }} ({{ user.username }})</a>
+                <a class="btn btn-primary" id="logout" href="{% url 'djangoapp:logout' %}">Logout</a>
             </li>
-            <table class="table" id="table" data-filter-control="true">
+            <li>
+            {% comment %} <div style="position:fixed;  right:0%"> {% endcomment %}
+            <table class="table position:relative" id="table" data-filter-control="true">
                 <thead>
                     <tr>
                         <th data-field="id">ID</th>
@@ -57,7 +61,8 @@
                     {% endfor %}
                 </tbody>
             </table>
-
+        </li>
+        </div>
 
             <a class="btn btn-primary" href="{% url 'djangoapp:contact'  %}" >Contact us</a>
             {% else %}
@@ -74,12 +79,7 @@
             {% endif %}
         </ul>
     </nav>
-    
-  
     </body>
-    <footer>
-        
-    </footer>
     <script>
         $(function() {
           $('#table').bootstrapTable()

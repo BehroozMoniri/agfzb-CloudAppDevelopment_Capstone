@@ -52,14 +52,24 @@ body {
    padding: 20px;
    margin-top: 20px;
 }
-
+.card-img-left{
+  width: 33.33%;
+  padding: 5px;
+}
 /* Clear floats after the columns */
 .row:after {
   content: "";
   display: table;
   clear: both;
 }
-
+#name {
+  position:fixed;
+  right: 0%;
+}
+#logout {
+  position:fixed;
+  right: 10%;
+}
 /* Footer */
 .footer {
   padding: 20px;
@@ -75,7 +85,14 @@ body {
     padding: 0;
   }
 }
-
+.card-columns {
+  @include media-breakpoint-only(lg) {
+    column-count: 4;
+  }
+  @include media-breakpoint-only(xl) {
+    column-count: 5;
+  }
+}
 
 .button {
   border: none;
@@ -95,7 +112,8 @@ body {
 }
 
 .rightalign {
-    float: right;
+  position:fixed;
+  right: 0%;
 }
 
 

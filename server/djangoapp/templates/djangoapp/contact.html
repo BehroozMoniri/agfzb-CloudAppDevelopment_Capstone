@@ -15,20 +15,22 @@
     <meta charset="UTF-8">
     {% load static %}
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <a class="btn btn-primary" href="{% url 'djangoapp:index'  %}" >Home</a>
 </head>
     <body>
-        <h1>
-            {% comment %} {{ address }} {% endcomment %}
-            The Best Car dealership is located at:<br>
-            The best Road,</br>
-            The best town,</br>
-            The Biggest City,</br>
-            QER </br>
-            The number to reach us is:  24890287502</br>
-        </h1>
-
+        <div class="text-center">
+            <h4>
+                {% comment %} {{ address }} {% endcomment %}
+                The Best Car dealership is located at:<br>
+                The best Road,</br>
+                The best town,</br>
+                The Biggest City,</br>
+                QER </br>
+                The number to reach us is:  24890287502</br>
+            </h4>
+        </div>
     </body>
     <footer>
-    <a class="btn btn-primary" href="{% url 'djangoapp:index'  %}" >Home</a>
+    
     </footer>
 </html>

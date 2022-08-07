@@ -1,3 +1,4 @@
+import re
 from django.shortcuts import render
 from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.auth.models import User
@@ -123,6 +124,14 @@ def add_review(request, dealer_id): #, review_id
                                     content=comment )
         review.save()
         return HttpResponseRedirect(reverse('djangoapp:dealer_details', args=(dealer_id,)))
+def delete_review(request, dealerreview_id):
+    review = DealerReview.objects.get(id=dealerreview_id)
+    dealer = review.car_dealer
+    if request.method=="POST":
+        review.delete()
+        return HttpResponseRedirect(reverse('djangoapp:dealer_details', args=(dealer.id,)))
+    context = {"review": review, "dealer":dealer  }
+    return render(request, 'djangoapp/delete_review.html', context)
 # def CreateCar(request, pk):
 #     user = request.user
 #     form = ProfileForm(instance=profile)

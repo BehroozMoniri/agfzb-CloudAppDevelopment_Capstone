@@ -1,0 +1,26 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+     {% load static %}  
+    {% comment %} <link rel="stylesheet" type="text/css" href="extensions/filter-control/bootstrap-table-filter-control.css">
+    <script src="extensions/filter-control/bootstrap-table-filter-control.js"></script>{% endcomment %}
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> 
+</head>
+    <body>
+        <div class="col-md-10">
+            <div class="col-md-10">
+                <div class="card card-text" >
+                    <p>Are you sure you want to delete "{{ review }}"? </p>
+
+                    <form action="{% url 'djangoapp:delete_review' review.id %}" method="POST" >
+                        {% csrf_token%}
+                        <a href="{% url 'djangoapp:dealer_details' dealer.id  %}" > Cancle</a>
+                        <input type="submit" name="confirm" >
+                    </form>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

@@ -51,3 +51,5 @@ class DealerReview(models.Model):
     purchasedate = models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE ) #, through='Users' 
     content = models.TextField(max_length=1000)
+    def __str__(self):
+        return self.content
