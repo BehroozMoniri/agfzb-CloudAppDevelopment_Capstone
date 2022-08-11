@@ -15,15 +15,16 @@
 <head>
     <meta charset="UTF-8">
      {% load static %}  
-    {% comment %} <link rel="stylesheet" type="text/css" href="extensions/filter-control/bootstrap-table-filter-control.css">
-    <script src="extensions/filter-control/bootstrap-table-filter-control.js"></script>{% endcomment %}
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> 
+    <link rel="stylesheet" type="text/css" href="extensions/filter-control/bootstrap-table-filter-control.css">
+    <script src="extensions/filter-control/bootstrap-table-filter-control.js"></script> {% comment %}{% endcomment %}
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">    {% comment %} {% endcomment %}
+    <link rel="stylesheet" href="djangoapp.css" >
 </head>
     <body>
 
     <!--Add a nav bar here -->
-    <nav> 
-        <ul rel="stylesheet" href="djangoapp.css">
+    <nav > 
+        <ul class="list-unstyled">
             <li> <a class="btn btn-info col-sm-8" href="{% url 'djangoapp:about' %}">About Us</a></li> {% comment %} {% url "about" %} {% endcomment %}
              {% comment %}   <li> <a href="{% url 'djangoapp:contact' %}">Contact Us</a></li>   {% endcomment %} 
              <li> Dealersips in the US</li>
@@ -36,7 +37,7 @@
             </li>
             <li>
             {% comment %} <div style="position:fixed;  right:0%"> {% endcomment %}
-            <table class="table position:relative" id="table" data-filter-control="true">
+            <table class="table" id="table" data-filter-control="true">
                 <thead>
                     <tr>
                         <th data-field="id">ID</th>
@@ -44,7 +45,7 @@
                         <th data-field="city">City</th>
                         <th data-field="add">Address</th>
                         <th data-field="zip">Zip</th>
-                        <th data-field="state" data-filter-control="select">State</th>
+                        <th data-field="state" data-filter-control="select" > State</th> 
                     </tr>
                 </thead>
                 <tbody>

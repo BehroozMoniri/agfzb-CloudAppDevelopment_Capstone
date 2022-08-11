@@ -1,12 +1,12 @@
   applications:
   - name: djangoapp
     routes:
-      - route: my_host.eu-gb.cf.appdomain.cloud
+      - route: myhost.eu-gb.cf.appdomain.cloud
     memory: 128M
     buildpack: python_buildpack
   - name: djangoapp-nginx
     routes:
-      - route: my_host.eu-gb.cf.appdomain.cloud/static
+      - route: myhost.eu-gb.cf.appdomain.cloud/static
     memory: 128M
     buildpack: staticfile_buildpack
 # ibmcloud cf domains   
